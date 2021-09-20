@@ -1,18 +1,8 @@
-var containerQuestionEl = document.getElementById("question-container");
-var containerStartEl = document.getElementById("starter-container");
-var containerEndEl = document.getElementById("end-container")
-var containerScoreEl = document.getElementById("score-banner")
-var formInitials = document.getElementById("initials-form")
-var containerHighScoresEl = document.getElementById("high-score-container")
-var ViewHighScoreEl = document.getElementById("view-high-scores")
-var listHighScoreEl = document.getElementById("high-score-list")
-var correctEl = document.getElementById("correct")
-var wrongEl = document.getElementById("wrong")
+
 //buttons
 var btnStartEl = document.querySelector("#start-game");
-var btnGoBackEl = document.querySelector("#go-back")
-var btnClearScoresEl = document.querySelector("#clear-high-scores")
-//questions/answers element
+
+//questions/answers 
 var questionEl = document.getElementById("question")
 var answerbuttonsEl = document.getElementById("answer-buttons")
 var timerEl = document.querySelector("#timer");
@@ -21,8 +11,14 @@ var timeleft;
 var gameover
 timerEl.innerText = 0;
 
-//High Score Array
-var HighScores = [];
+var containerQuestionEl = document.getElementById("question-container");
+var containerStartEl = document.getElementById("starter-container");
+var containerEndEl = document.getElementById("end-container")
+var containerScoreEl = document.getElementById("score-banner")
+var formName = document.getElementById("name-form")
+var correctEl = document.getElementById("correct")
+var wrongEl = document.getElementById("wrong")
+
 
  //assign array details for questions 
 var arrayShuffledQuestions
@@ -30,63 +26,34 @@ var QuestionIndex = 0
 
 
 
-// The array of questions for our quiz game.
+// questions 
 var questions = [
-  { q: 'Arrays in Javascript can be used to store __________.', 
-    a: '4. all of the above', 
-    choices: [{choice: '1. numbers'}, {choice: '2. booleans'}, {choice: '3. strings'}, {choice: '4. all of the above'}]
+  { q: 'How many types of windors does Python use?', 
+    a: '3. Two', 
+    choices: [{choice: '1. One'}, {choice: '2. Five'}, {choice: '3. Two'}, {choice: '4. Four'}]
   },
-  { q: 'Inside which HTML element do we put the javascript?', 
-    a: '3. <script>', 
-    choices: [{choice: '1. <h1>'}, {choice: '2. <js>'}, {choice: '3. <script>'}, {choice: '4. <head>'}]
+  { q: 'What is computer coding?', 
+    a: '3. Telling a computer what to do', 
+    choices: [{choice: '1. Radio Show'}, {choice: '2. Tv show'}, {choice: '3. Telling a computer what to do'}, {choice: '4. List of functions'}]
   },
-  { q: 'In the code -- setinterval(time(),1000) -- what is time()?', 
-    a: '1. callback function', 
-    choices: [{choice: '1. callback function'}, {choice: '2. undefined'}, {choice: '3. variable'}, {choice: '4. all of the above'}]
+  { q: 'Which of these is NOT a programming language?', 
+    a: '2. Banana', 
+    choices: [{choice: '1. Coding'}, {choice: '2. Banana'}, {choice: '3. Python'}, {choice: '4. java'}]
   },
-  { q: 'What syntax would call a function?', 
-    a: '4. function()', 
-    choices: [{choice: '1. var function'}, {choice: '2. function'}, {choice: '3. call function'}, {choice: '4. function()'}]
+  { q: 'Which of these is a programming language?', 
+    a: '1. Scratch', 
+    choices: [{choice: '1. Scratch'}, {choice: '2. Gnaw'}, {choice: '3. Bite'}, {choice: '4. Itch'}]
   },
-  { q: 'When did javascript first appear?', 
-    a: '1. 1995', 
-    choices: [{choice: '1. 1995'}, {choice: '2. Roaring twenties'}, {choice: '3. 2005'}, {choice: '4. 2000'}]
-  },
-  { q: 'What does DOM stand for?', 
-    a: '2. Document Object Model', 
-    choices: [{choice: '1. Do Overnight Modules'}, {choice: '2. Document Object Model'}, {choice: '3. Divas Obviously Model'}, {choice: '4. Do Oo Mo'}]
-  },
-  { q: 'What is getItem commonly used for?', 
-    a: '2. local storage', 
-    choices: [{choice: '1. adding drama'}, {choice: '2. local storage'}, {choice: '3. online shopping'}, {choice: '4. naming a variable'}]
+  { q: 'What are people who write computer code called?', 
+    a: '1. Programmers', 
+    choices: [{choice: '1. Programmers'}, {choice: '2. Professors'}, {choice: '3. Manufacturers'}, {choice: '4. Crazy people'}]
   },
 ];
 
-  //if go back button is hit on high score page
-var renderStartPage = function () {
-  containerHighScoresEl.classList.add("hide")
-  containerHighScoresEl.classList.remove("show")
-  containerStartEl.classList.remove("hide")
-  containerStartEl.classList.add("show")
-  containerScoreEl.removeChild(containerScoreEl.lastChild)
-  QuestionIndex = 0
-  gameover = ""
-  timerEl.textContent = 0 
-  score = 0
-
-  if (correctEl.className = "show") {
-      correctEl.classList.remove("show");
-      correctEl.classList.add("hide")
-  }
-  if (wrongEl.className = "show") {
-      wrongEl.classList.remove("show");
-      wrongEl.classList.add("hide");
-  }
-}
 
 //every second, check if game-over is true, or if there is time left. Start time at 30. 
 var setTime = function () {
-  timeleft = 30;
+  timeleft = 75;
 
 var timercheck = setInterval(function() {
   timerEl.innerText = timeleft;
@@ -117,7 +84,7 @@ var startGame = function() {
   setQuestion()
 }
 
-//set next question for quiz
+//question for quiz
 var setQuestion = function() {
   resetAnswers()
   displayQuestion(arrayShuffledQuestions[QuestionIndex])
@@ -130,7 +97,7 @@ var resetAnswers = function() {
   };
 };
 
-//display question information (including answer buttons)
+//display question 
 var displayQuestion = function(index) {
   questionEl.innerText = index.q
   for (var i = 0; i < index.choices.length; i++) {
@@ -166,13 +133,13 @@ var answerCheck = function(event) {
   var selectedanswer = event.target
       if (arrayShuffledQuestions[QuestionIndex].a === selectedanswer.innerText){
           answerCorrect()
-          score = score + 7
+          score = score + 10
       }
 
       else {
         answerWrong()
         score = score - 1;
-        timeleft = timeleft - 3;
+        timeleft = timeleft - 5;
     };
 
   //go to next question, check if there is more questions
@@ -193,127 +160,9 @@ var showScore = function () {
   containerEndEl.classList.add("show");
 
   var scoreDisplay = document.createElement("p");
-  scoreDisplay.innerText = ("Your final score is " + score + "!");
+  scoreDisplay.innerText = ("Final score is " + score + "!");
   containerScoreEl.appendChild(scoreDisplay);
 }       
 
-//create high score values
-var createHighScore = function(event) { 
-  event.preventDefault() 
-  var initials = document.querySelector("#initials").value;
-  if (!initials) {
-    alert("Enter your intials!");
-    return;
-  }
-
-formInitials.reset();
-
-var HighScore = {
-initials: initials,
-score: score
-} 
-
-//push and sort scores
-HighScores.push(HighScore);
-HighScores.sort((a, b) => {return b.score-a.score});
-
-//clear visibile list to resort
-while (listHighScoreEl.firstChild) {
- listHighScoreEl.removeChild(listHighScoreEl.firstChild)
-}
-//create elements in order of high scores
-for (var i = 0; i < HighScores.length; i++) {
-var highscoreEl = document.createElement("li");
-highscoreEl.ClassName = "high-score";
-highscoreEl.innerHTML = HighScores[i].initials + " - " + HighScores[i].score;
-listHighScoreEl.appendChild(highscoreEl);
-}
-
-saveHighScore();
-displayHighScores();
-
-}
-//save high score
-var saveHighScore = function () {
-  localStorage.setItem("HighScores", JSON.stringify(HighScores))
-      
-}
-
-//load values/ called on page load
-var loadHighScore = function () {
-  var LoadedHighScores = localStorage.getItem("HighScores")
-      if (!LoadedHighScores) {
-      return false;
-  }
-
-  LoadedHighScores = JSON.parse(LoadedHighScores);
-  LoadedHighScores.sort((a, b) => {return b.score-a.score})
-
-
-  for (var i = 0; i < LoadedHighScores.length; i++) {
-      var highscoreEl = document.createElement("li");
-      highscoreEl.ClassName = "high-score";
-      highscoreEl.innerText = LoadedHighScores[i].initials + " - " + LoadedHighScores[i].score;
-      listHighScoreEl.appendChild(highscoreEl);
-
-      HighScores.push(LoadedHighScores[i]);
-      
-  }
-}  
-
-//display high score screen from link or when intiials entered
-var displayHighScores = function() {
-
-  containerHighScoresEl.classList.remove("hide");
-  containerHighScoresEl.classList.add("show");
-  gameover = "true"
-
-  if (containerEndEl.className = "show") {
-      containerEndEl.classList.remove("show");
-      containerEndEl.classList.add("hide");
-      }
-  if (containerStartEl.className = "show") {
-      containerStartEl.classList.remove("show");
-      containerStartEl.classList.add("hide");
-      }
-      
-  if (containerQuestionEl.className = "show") {
-      containerQuestionEl.classList.remove("show");
-      containerQuestionEl.classList.add("hide");
-      }
-
-  if (correctEl.className = "show") {
-      correctEl.classList.remove("show");
-      correctEl.classList.add("hide");
-  }
-
-  if (wrongEl.className = "show") {
-      wrongEl.classList.remove("show");
-      wrongEl.classList.add("hide");
-      }
-  
-}
-//clears high scores
-var clearScores = function () {
-  HighScores = [];
-
-  while (listHighScoreEl.firstChild) {
-      listHighScoreEl.removeChild(listHighScoreEl.firstChild);
-  }
-
-  localStorage.clear(HighScores);
-
-} 
-
-loadHighScore()
-  
-//on start click, start game
+//start game
 btnStartEl.addEventListener("click", startGame)
-//on submit button -- enter or click
-formInitials.addEventListener("submit", createHighScore)
-//when view high-scores is clicked
-ViewHighScoreEl.addEventListener("click", displayHighScores)
-//Go back button
-btnGoBackEl.addEventListener("click", renderStartPage)
-//clear scores button
-btnClearScoresEl.addEventListener("click", clearScores)
